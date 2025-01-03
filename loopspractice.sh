@@ -23,19 +23,18 @@ VALIDATE() {
     fi
 }
 
-CHECK_ROOT() {
-    if ($USERID -ne 0)
+
+ if ($USERID -ne 0)
     then
         echo "$R you should be a root user to run this script $N"
         exit 1
     else
         echo "$G successfully verified ---ROOT_USER $N"
-    fi
-}
+fi
 
 echo " script started at: $TIMESTAMP" &>>$LOG_FILE_NAME
 
-CHECK_ROOT
+
 
 for package in $@
 do

@@ -7,7 +7,7 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-mkdir /var/log/expense_log
+mkdir -p /var/log/expense_log
 
 LOGS_FOLDER="/var/log/expense_log"
 LOG_FILE=$(echo $0 | cut -d "." -f1)
@@ -15,7 +15,7 @@ TIMESTAMP=$(date +%d-%m-%Y-%H-%M-%S)
 LOG_FILE_NAME="$LOGS_FOLDER/$LOG_FILE-$TIMESTAMP.log"
 
 VALIDATE() {
-    if ($1 -ne 0)
+    if [ $1 -ne 0 ]
     then 
         echo "$2.....$R FAILURE $N"
     else
@@ -24,7 +24,7 @@ VALIDATE() {
 }
 
 
- if ($USERID -ne 0)
+ if [ $USERID -ne 0 ]
     then
         echo "$R you should be a root user to run this script $N"
         exit 1
@@ -38,7 +38,7 @@ echo " script started at: $TIMESTAMP" &>>$LOG_FILE_NAME
 
 for package in $@
 do
-  if ($1 -ne 0)
+  if [ $1 -ne 0 ]
   then
       dnf install $package -y &>>$LOG_FILE_NAME
       $VALIDATE $? "installing $package"

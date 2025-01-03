@@ -39,11 +39,11 @@ echo -e "script started at: $TIMESTAMP" &>>$LOG_FILE_NAME
 for package in $@
 do
     dnf list installed $package &>>$LOG_FILE_NAME
-  if [ $1 -ne 0 ]
-  then
+    if [ $? -ne 0 ]
+    then
       dnf install $package -y &>>$LOG_FILE_NAME
       VALIDATE $? "installing $package"
-   else
+    else
      echo -e "$Y $package is allrady installed $N"
     fi
 done

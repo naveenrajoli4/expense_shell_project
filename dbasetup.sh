@@ -43,7 +43,7 @@ else
     echo "mysql is already installed"
 fi 
 
-systemctl enble mysqld
+systemctl enable mysqld
 VALIDATE $? "enabling mysql"
 
 systemctl start mysqld

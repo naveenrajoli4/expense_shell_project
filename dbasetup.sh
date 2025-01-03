@@ -26,7 +26,7 @@ VALIDATE() {
 
 echo "script started at: $TIMESTAMP"
 
-if [ $USERID -ne 0]
+if [ $USERID -ne 0 ]
 then
     echo " you should be a root user to run this script"
     exit 1

@@ -26,18 +26,34 @@ VALIDATE() {
 
 echo "script started at: $TIMESTAMP"
 
-$USERID 
-VALIDATE $? "rootuser"
-
-dnf list installed mysql &>>$LOG_FILE_NAME
-
-if [ $? -ne 0 ]
-then 
-    dnf install mysql-server -y &>>$LOG_FILE_NAME
-    VALIDATE $? "installing-mysql"
+if [ $USERID -ne 0]
+then
+    echo " you should be a root user to run this script"
+    exit 1
 else
-    echo -e "$Y MYSQL is already installed $N"
+    echo "ROOT__USER__SUCCESSFULLY__VERFIED!"
 fi
+
+dnf list installed mysql
+if [ $? -ne 0 ]
+then
+    dnf install mysql-server -y
+    VALIDATE $? "INSTALLING MYSQL"
+else
+    echo "mysql is already installed"
+fi 
+
+systemctl enble mysqld
+VALIDATE $? "enabling mysql"
+
+systemctl start mysqld
+VALIDATE $? "starting mysql"
+
+mysql_secure_installation --set-root-pass ExpenseApp@1
+VALIDATE $? "setting mysql password"
+
+
+
 
 
 

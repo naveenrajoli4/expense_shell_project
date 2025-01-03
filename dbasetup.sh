@@ -51,7 +51,7 @@ VALIDATE $? "starting mysql"
 
 mysql -h 44.204.188.40 -u root -pExpenseApp@1 -e 'show databases;'
 
-if [ $? -ne 0]
+if [ $? -ne 0 ]
 then 
     echo "mysql root password not set"
     mysql_secure_installation --set-root-pass ExpenseApp@1

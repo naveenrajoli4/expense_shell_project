@@ -15,7 +15,7 @@ TIMESTAMP=$(date +%d-%m-%Y-%H-%M-%S)
 LOG_FILE_NAME="$LOGS_FOLDER/$LOG_FILE-$TIMESTAMP.log"
 
 VALIDATE() {
-    if [ $1 -ne 0]
+    if [ $1 -ne 0 ]
     then
         echo -e "$2 .....FAILURE"
         exit 1
@@ -28,5 +28,17 @@ echo "script started at: $TIMESTAMP"
 
 $USERID 
 VALIDATE $? "rootuser"
+
+dnf list installed mysql &>>$LOG_FILE_NAME
+
+if [ $? -ne 0 ]
+then 
+    dnf install mysql-server -y &>>$LOG_FILE_NAME
+    VALIDATE $? "installing-mysql"
+else
+    echo -e "$Y MYSQL is already installed $N"
+fi
+
+
 
 

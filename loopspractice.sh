@@ -35,6 +35,8 @@ CHECK_ROOT() {
 
 echo " script started at: $TIMESTAMP" &>>$LOG_FILE_NAME
 
+CHECK_ROOT
+
 for package in $@
 do
   if ($1 -ne 0)
